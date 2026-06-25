@@ -23,4 +23,7 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/api/makes", async (VpicClient vpic, CancellationToken ct) =>
     Results.Ok(await vpic.GetAllMakesAsync(ct)));
 
+app.MapGet("/api/makes/{makeId:int}/vehicle-types", async (int makeId, VpicClient vpic, CancellationToken ct) =>
+    Results.Ok(await vpic.GetVehicleTypesAsync(makeId, ct)));
+
 app.Run();
