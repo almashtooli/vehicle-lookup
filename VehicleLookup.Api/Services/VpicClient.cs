@@ -32,4 +32,15 @@ public class VpicClient
             $"vehicles/GetVehicleTypesForMakeId/{makeId}?format=json", ct);
         return resp?.Results ?? new List<VehicleType>();
     }
+
+    public async Task<List<Model>> GetModelsAsync(int makeId, int year, string? vehicleType, CancellationToken ct)
+    {
+        var url = $"vehicles/GetModelsForMakeIdYear/makeId/{makeId}/modelyear/{year}";
+        if (!string.IsNullOrWhiteSpace(vehicleType))
+            url += $"/vehicleType/{Uri.EscapeDataString(vehicleType)}";
+        url += "?format=json";
+
+        var resp = await _http.GetFromJsonAsync<VpicResponse<Model>>(url, ct);
+        return resp?.Results ?? new List<Model>();
+    }
 }
