@@ -20,6 +20,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapGet("/api/makes", async (VpicClient vpic, CancellationToken ct) =>
     Results.Ok(await vpic.GetAllMakesAsync(ct)));
 
@@ -37,5 +40,7 @@ app.MapGet("/api/makes/{makeId:int}/models", async (
         return Results.BadRequest("year out of range");
     return Results.Ok(await vpic.GetModelsAsync(makeId, year, vehicleType, ct));
 });
+
+app.MapFallbackToFile("index.html");
 
 app.Run();

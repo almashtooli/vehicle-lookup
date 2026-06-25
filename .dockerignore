@@ -1,0 +1,8 @@
+**/bin
+**/obj
+**/node_modules
+client/dist
+client/.angular
+.vs
+.git
+.gitignore
